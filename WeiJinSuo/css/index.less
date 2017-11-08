@@ -1,0 +1,792 @@
+// 先引入变量
+@import './setting.less';
+// 清除浏览器默认样式
+@import './reset.less';
+// 清除各个浏览器的兼容问题
+@import './normalize.less';
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.wjs {
+  width: 100%;
+  height: 100%;
+  transition: all 1s;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+// 小屏幕的底部导航
+.smalltopnav {
+  display: none;
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 57px;
+  border-bottom:1px solid #ccc;
+  background-color: #f5f5f5;
+  padding: 15px 20px;
+  box-sizing:border-box;
+  z-index: 11;
+  transition:all 1s;
+  a:first-child{
+    margin-top: 16px;
+
+  }
+  a:last-child{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    line-height: 58px;
+  }
+}
+// 侧边栏
+.sidebar{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -240px;
+  width: 240px;
+  height: 100%;
+  background-color: green;
+  z-index: 11;
+  transition:all 1s;
+  .sidebartop {
+    text-align: center;
+    padding: 30px 0;
+    border-bottom: 1px solid #ccc;
+    li {
+      line-height: 30px;
+      font-size: 18px;
+    }
+  }
+    .sidebarbottom {
+      text-align: center;
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+      li {
+        line-height: 50px;
+        font-size: 20px;
+      }
+    }
+
+}
+.pushright{
+  left:240px;
+}
+.sidebar-push{
+  left: 0;
+}
+
+
+
+// 顶部导航
+.topnav {
+  width: 100%;
+  height: @topHeight;
+  border-bottom: 1px solid @topBorderColor;
+  ul {
+    width: @smallWidth;
+    height: 100%;
+    text-align: center;
+    line-height: @topHeight;
+    .center-block();
+  }
+  li {
+    float: left;
+    border-left: 1px solid @topBorderColor;
+  }
+  .qrcode {
+    width: @qrcodeWidth;
+    border-left: none;
+  }
+  .service {
+    width: @serviceWidth;
+  }
+  .join {
+    width: @joinWidth;
+    font-size: 13px;
+    .signup {
+      padding: 3px 6px;
+      background-color: @signupColor;
+      color: @white;
+      border-radius: @topRadius;
+      margin-right: 5px;
+    }
+  }
+  .extra {
+    width: @extraWidth;
+  }
+}
+
+//导航
+.nav {
+  width: 100%;
+  height: @navHeight;
+  border-bottom: 1px solid @topBorderColor;
+  overflow:hidden;
+  ul {
+    width: @smallWidth;
+    height: 100%;
+    .center-block();
+    overflow: hidden;
+  }
+  li.logo {
+    img {
+      width: @navImgWidth;
+      height: auto;
+      margin-top: @navImgTop;
+      margin-right: @logoRight;
+    }
+  }
+  li {
+    float: left;
+    height: 100%;
+    line-height: @navHeight;
+    padding: 0 15px;
+    box-sizing: border-box;
+    font-size: 15px;
+    position: relative;
+    &:last-child {
+      float: right;
+    }
+    &:hover {
+      a {
+        color: #333;
+      }
+      b {
+        opacity: 1;
+      }
+    }
+    a {
+      display: block;
+      height: 100%;
+      color: #666;
+    }
+    b {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      background-color: @navTextDecorationBg;
+      opacity: 0;
+      transition: all 1s;
+    }
+  }
+}
+
+// 轮播图
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.swipe-wrap > li {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+
+.swipe {
+  a {
+    display: block;
+    width: 100%;
+  }
+  img {
+    width: 100%;
+    height: 400px;
+    vertical-align:middle;
+  }
+}
+
+// 专长
+.expertise {
+  max-width: 1170px;
+  .center-block();
+  padding: @exPadding;
+  overflow: hidden;
+  dl {
+    float: left;
+    width: 100%/3;
+    padding: @dlPadding;
+    box-sizing: border-box;
+  }
+  dt {
+    font-size: 20px;
+    margin-bottom: @dtBottom;
+  }
+  dd {
+    font-size: 16px;
+    margin-bottom: 15px;
+    span {
+      font-size: 13px;
+      margin-right: 5px;
+      color: @exColor;
+      font-family: @exFontFamily;
+    }
+  }
+}
+
+// 通知
+.notify {
+
+  padding: 15px 0;
+  border-top: 1px solid @topBorderColor;
+  border-bottom: 1px solid @topBorderColor;
+  ul {
+    max-width: 1170px;
+    .center-block();
+    position: relative;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  li {
+    font-size: 16px;
+    margin: 15px 0;
+    &:last-child {
+      position: absolute;
+      right: 5px;
+      top: 0;
+    }
+    span.qa {
+      color: #333;
+    }
+    span.qb {
+      color: @notifyColor;
+    }
+    a.qc {
+      color: @notifyqaColor;
+    }
+    a.qb {
+      color: @notifyColor;
+    }
+    &.no-img {
+      img {
+        height: @notifyImgHeight;
+        width: auto;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+// 借贷
+.loan {
+  width: 100%;
+  padding: 20px 0;
+  background-image: url("../images/box-style-bg.png");
+  .loan-wrap {
+    max-width: 1170px;
+    .center-block();
+  }
+  .tab-wrap {
+    position: relative;
+  }
+  .tab {
+    min-width: 570px;
+    height: @tabsHeight;
+    line-height: @tabsLineHeight;
+    border-bottom: 1px solid #c6cbcf;
+    box-sizing: border-box;
+    padding-left: 15px;
+   //自动出现滚动条
+    overflow:auto;
+  }
+  li {
+    float: left;
+    font-size: 16px;
+    padding: 6px 18px;
+    position: relative;
+    margin-right: 15px;
+
+    &:hover {
+      b {
+        opacity: 1;
+      }
+    }
+    a {
+      display: block;
+      height: 100%;
+    }
+    b {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      opacity: 0;
+      background-color: red;
+      transition: all 1s;
+    }
+  }
+
+  .intro {
+    position: relative;
+    max-width: 1170px;
+    margin: 20px auto;
+    height: @introHeight;
+    line-height: @introHeight;
+    background-color: @white;
+    border-radius: @introRadius;
+    box-shadow: @introBoxShadow;
+    padding-left: 20px;
+    &:before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 54px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid @white;
+    }
+    p {
+      padding-left: 20px;
+      font-size: 14px;
+    }
+  }
+  .items {
+    width: 100%;
+    padding-top: 20px;
+    text-align: justify;
+
+    &:after {
+      content: "";
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+
+  .item {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    width: 31.5%;
+    height: 148px;
+    background-color: @white;
+    padding: 15px 110px 15px 0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+      top: -7px;
+      right: 100px;
+      z-index: 10;
+    }
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+      bottom: -7px;
+      right: 100px;
+      z-index: 10;
+    }
+  }
+  .item-left {
+    width: 100%;
+    height: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+  dt {
+    width: 100%;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  dd {
+    overflow: hidden;
+    margin-bottom: 12px;
+    &.small {
+      font-size: 20px;
+
+    }
+    &.large {
+      font-size: 18px;
+    }
+  }
+  .l {
+    float: left;
+
+  }
+  .r {
+    float: right;
+  }
+  .item-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 110px;
+    height: 100%;
+    border-left: 1px dashed @topBorderColor;
+
+    .font {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+      span {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        font-size: 14px;
+        text-align: center;
+        border: 1px solid;
+        &.e {
+          color: #399;
+          border-color: #399;
+
+        }
+        &.b {
+          color: #f56854;
+          border-color: #f56854;
+        }
+      }
+    }
+    h2 {
+      font-size: 36px;
+      text-align: center;
+      color: red;
+      margin-top: 15px;
+    }
+  }
+  i {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #721786;
+    font-weight: bold;
+    display: block;
+  }
+  i:last-child {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: #000;
+  }
+  // 插入一个空的看不见的东西，实现 每个 iten  之间都有间隙
+  .blank {
+    display: inline-block;
+    width: 31.5%;
+
+  }
+}
+
+//新闻
+
+.news {
+  width: 100%;
+  padding: @newsPadding;
+  overflow: hidden;
+  border-bottom: 1px solid #ccc;
+  h6 {
+    float: left;
+    display: block;
+    width: @titleWidth;
+    padding: @titlePadding;
+    margin-left: @titleLeft;
+    font-size: 16px;
+    font-weight: normal;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      right: -8px;
+      width: 8px;
+      height: 8px;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      box-sizing: border-box;
+    }
+  }
+
+  .point {
+    float: left;
+    margin-left: @typeLeft;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 100%;
+      border-left: 1px dashed #ccc;
+    }
+    span {
+      display: block;
+      width: 45px;
+      height: 45px;
+      background-color: #ccc;
+      margin-bottom: @marginBottom;
+      border-radius: 50%;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+  }
+  .list {
+    float: left;
+    margin-left: @listLeft;
+
+    li {
+      display: block;
+      height: 45px;
+      line-height: 50px;
+      font-size: 14px;
+      &:last-child {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+.footer {
+  width: 100%;
+  .aboutme {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    span {
+      font-size: 15px;
+      margin: 0 3px;
+    }
+    a {
+      display: inline-block;
+      font-size: 16px;
+      &:nth-child(-n+6) {
+        margin-right: 6px;
+      }
+    }
+  }
+  .copyright {
+    background-color: #666;
+    text-align: center;
+    font-size: 13px;
+    color: @white;
+    overflow: hidden;
+    p {
+      margin-top: 25px;
+    }
+    .company {
+      text-align: center;
+      padding: 25px 0;
+    }
+    img {
+      height: 42px;
+      width: auto;
+      margin: 0 10px;
+    }
+  }
+}
+
+//响应式布局
+@media screen and (max-width: 980px) {
+  //顶部导航
+  .topnav {
+    ul {
+      width: 750px;
+      .center-block();
+    }
+    .qrcode {
+      display: none;
+    }
+    .service {
+      border-left: none;
+      //通知
+      .expertise {
+        max-width: 750px;
+        .center-block();
+      }
+
+    }
+  }
+
+  //导航
+  .nav {
+    ul {
+      width: 750px;
+      .center-block();
+    }
+    li:last-child {
+      display: none;
+    }
+  }
+
+  // 专长
+  .expertise {
+    max-width: 750px;
+    .center-block();
+  }
+
+  .notify {
+    ul {
+      max-width: 750px;
+      .center-block();
+      li:last-child {
+        display: none;
+      }
+    }
+  }
+
+  .loan {
+    .loan-wrap {
+      max-width: 980px;
+      .center-block();
+    }
+    .item {
+      width: 48%;
+    }
+  }
+  .news{
+    width:100%;
+    padding:@newsPadding;
+    overflow: hidden;
+    h6{
+
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .smalltopnav{
+    display: block;
+  }
+  .sidebar{
+    display: block;
+  }
+.topnav {
+  display:none;
+}
+  .nav {
+    display:none;
+  }
+  .expertise{
+    display: none;
+  }
+  .loan {
+    // 项目显示完整一个
+    .item{
+      width: 100%;
+    }
+  }
+  .news {
+    width: 100%;
+    padding: 30px 20px ;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    box-sizing:border-box;
+    h6 {
+      float: none;
+      display: block;
+      width: 100%;
+
+      padding: @titlePadding;
+      padding-left:0;
+      margin-left:0;
+      font-size: 16px;
+      font-weight: normal;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        right: -8px;
+        width: 8px;
+        height: 8px;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        box-sizing: border-box;
+      }
+    }
+
+    .point {
+      text-align:justify;
+      float: none;
+      margin-left: @typeLeft;
+      position: relative;
+      &:after{
+        content:"";
+        width: 100%;
+        display:inline-block;
+        overflow: hidden;
+      }
+      &:before {
+        content: '';
+        display:none;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 100%;
+        border-left: 1px dashed #ccc;
+      }
+      span {
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background-color: #ccc;
+        margin: 20px 0px;
+        border-radius: 50%;
+        &:last-child {
+          margin: 20px 0px;
+        }
+      }
+
+    }
+    .list {
+      float: none;
+      margin-left: @listLeft;
+
+      li {
+        display: block;
+        height: 45px;
+        line-height: 50px;
+        font-size: 14px;
+        &:last-child {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+}
+
+
