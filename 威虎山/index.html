@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+       html, body{
+           width: 100%;
+           height: 100%;
+        }
+        .content{
+            width: 100%;
+            height: 100%;
+            background-color: rgb(22, 186, 157);
+            display:flex;
+            /*主轴的 对齐方式*/
+            justify-content:space-around;
+            /*侧轴的对齐方式*/
+            align-items:center;
+        }
+        .left {
+            width: 529px;
+        }
+        .search {
+            position: relative;
+            height: 66px;
+            width: 529px;
+            transform:translateX(-120%);
+            animation:search 2s linear forwards;
+        }
+        @keyframes search {
+            from {
+                transform:translateX(-120%);
+            }
+            to{
+                transform:translateX(0px);
+            }
+        }
+        .result {
+            width: 529px;
+            height: 372px;
+            position: relative;
+            overflow: hidden;
+        }
+        .result img{
+            position: absolute;
+            top: -372px;
+            animation:result 2s  3s linear forwards;
+        }
+        @keyframes result{
+            from{
+                top: -372px;
+            }
+            to{
+                top: 0;
+            }
+        }
+        .result img{
+            position: absolute;
+            top: -372px;
+        }
+        .search:before{
+            content:"";
+            height: 22px;
+            width: 0;
+            display: inline-block;
+            background: url("img/key.png") no-repeat;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            animation: key 2s 2s steps(5) forwards;
+        }
+        @keyframes key{
+            from{
+                width: 0;
+            }
+            to{
+                width: 99px;
+            }
+        }
+    </style>
+</head>
+<body>
+   <div class="content">
+       <!-- 左侧 -->
+       <div class="left">
+           <div class="search">
+               <img src="img/search.png" alt=""/>
+           </div>
+           <div class="result">
+               <img src="img/result.png" alt=""/>
+           </div>
+       </div>
+       <!-- 右侧-->
+       <div class="right">
+           <img src="img/text.png" alt=""/>
+       </div>
+   </div>
+</body>
+</html>
