@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.box1{
+			width: 500px;
+			height: 600px;
+			border: 10px solid red;
+			margin-bottom: 40px;
+		}
+		.box2{
+			width: 600px;
+			height: 333px;
+			border: 11px solid blue;
+			padding: 12px 13px 14px 15px;
+		}
+		p{
+			float: left;
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			margin-right: 44px;
+		}
+		.xiaoming{
+			position: relative;
+			top: 33px;
+			left: 55px;
+		}
+		.floornav{
+			position: fixed;
+			bottom: 40px;
+			right: 40px;
+		}
+		.floornav ul{
+			list-style: none;
+		}
+		.floornav ul li{
+			line-height: 30px;
+			background-color: gold;
+			cursor: pointer;
+		}
+		.floornav ul li.cur{
+			background-color: red;
+		}
+	</style>
+	<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//窗口的事件：
+			var $h3 = $("h3");
+			var $floorLi = $(".floornav ul li");
+
+			$(window).scroll(function(){
+				var x = $(window).scrollTop();	//当前的卷动高度
+				if(x < $h3.eq(1).offset().top - 300){
+					$floorLi.eq(0).addClass("cur").siblings().removeClass("cur");
+				}else if(x < $h3.eq(2).offset().top - 300){
+					$floorLi.eq(1).addClass("cur").siblings().removeClass("cur");
+				}else if(x < $h3.eq(3).offset().top - 300){
+					$floorLi.eq(2).addClass("cur").siblings().removeClass("cur");
+				}else if(x < $h3.eq(4).offset().top - 300){
+					$floorLi.eq(3).addClass("cur").siblings().removeClass("cur");
+				}else if(x >= $h3.eq(4).offset().top - 300){
+					$floorLi.eq(4).addClass("cur").siblings().removeClass("cur");
+				} 
+				console.log(x);
+			});
+
+			//点击楼层导航的时候：
+			$(".floornav ul li").click(function(){
+				$("html,body").animate(
+					{	
+						//往对应h3上跳：
+						"scrollTop" : $("h3").eq($(this).index()).offset().top
+					}
+					,1000
+				);
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="floornav">
+		<ul>
+			<li class="cur">公司简介</li>
+			<li>公司新闻</li>
+			<li>公司历史</li>
+			<li>公司员工</li>
+			<li>公司倒闭了</li>
+		</ul>
+	</div>
+
+	<h3>公司简介</h3>
+	<img src="images/1.jpg" alt="" />
+	<img src="images/2.jpg" alt="" />
+	<img src="images/3.jpg" alt="" />
+	<img src="images/4.jpg" alt="" />
+	<img src="images/5.jpg" alt="" />
+	<img src="images/6.jpg" alt="" />
+ 	<img src="images/1.jpg" alt="" />
+	<img src="images/2.jpg" alt="" />
+	<h3>公司新闻</h3>
+	<img src="images/3.jpg" alt="" />
+	<img src="images/4.jpg" alt="" />
+	<img src="images/5.jpg" alt="" />
+	<img src="images/6.jpg" alt="" />
+	<img src="images/1.jpg" alt="" />
+	<img src="images/2.jpg" alt="" />
+	<img src="images/3.jpg" alt="" />
+	<h3>公司历史</h3>
+	<img src="images/4.jpg" alt="" />
+	<img src="images/5.jpg" alt="" />
+	<img src="images/6.jpg" alt="" />
+	<img src="images/1.jpg" alt="" />
+	<img src="images/2.jpg" alt="" />
+	<img src="images/3.jpg" alt="" />
+	<img src="images/4.jpg" alt="" />
+	<img src="images/5.jpg" alt="" />
+	<img src="images/6.jpg" alt="" />
+	<h3>公司员工</h3>
+	<img src="images/1.jpg" alt="" />
+	<img src="images/2.jpg" alt="" />
+	<img src="images/3.jpg" alt="" />
+	<img src="images/4.jpg" alt="" />
+	<h3>公司倒闭了</h3>
+	<img src="images/5.jpg" alt="" />
+	<img src="images/6.jpg" alt="" />
+</body>
+</html>
