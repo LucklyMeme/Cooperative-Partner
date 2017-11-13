@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.changjing{
+			width: 1000px;
+			height: 500px;
+			margin: 1500px auto;
+			border: 1px solid #000;
+			position: relative;
+		}
+	
+		.changjing img{
+			position: absolute;
+			/*默认图片都是透明的*/
+			opacity: 0;
+		}
+		.changjing.cur img{
+			*opacity: 1;  	/*8*/
+			_opacity: 1;	/*7*/
+			+opacity: 1;	/*8*/
+		}
+		.changjing img.no1{
+			top: 100px;
+			left: 0px;
+		}
+		.changjing img.no2{
+			top: 122px;
+			left: 54px;
+		}
+		.changjing img.no3{
+			top: 92px;
+			left: 247px;
+		}
+		.changjing img.no4{
+			top: 123px;
+			left: 490px;
+
+		}
+		.changjing img.no5{
+			top: 65px;
+			left: 762px;
+		}
+		.changjing.cur img.no1{
+			-webkit-animation:xianshi 1s ease 0s forwards;
+		}
+		.changjing.cur img.no2{
+			-webkit-animation:xianshi 1s ease 0.8s forwards;
+		}
+		.changjing.cur img.no3{
+			-webkit-animation:xianshi 1s ease 1.6s forwards;
+		}
+		.changjing.cur img.no4{
+			-webkit-animation:xianshi 1s ease 2.4s forwards;
+		}
+		.changjing.cur img.no5{
+			-webkit-animation:xianshi 1s ease 3.0s forwards;
+		}
+		@-webkit-keyframes xianshi{
+			from{
+				opacity: 0;
+			}
+			to{
+				opacity: 1;
+			}
+		}
+	</style>
+	<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(
+			function(){
+				$(window).scroll(
+					function(){
+						var A = $(window).scrollTop();
+						if(A > 1200){
+							$(".changjing").addClass("cur");
+						}else{
+							$(".changjing").removeClass("cur");
+						}
+					}
+				);
+			}
+		);
+	</script>
+</head>
+<body>
+<h3>鼠标往下滚，效果在第3屏</h3>
+	<div class="changjing">
+		<img class="no1" src="1.png" alt="">
+		<img class="no2" src="2.png" alt="">
+		<img class="no3" src="3.png" alt="">
+		<img class="no4" src="4.png" alt="">
+		<img class="no5" src="5.png" alt="">
+	</div>
+</body>
+</html>
