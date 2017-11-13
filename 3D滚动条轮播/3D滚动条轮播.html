@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background-color: #000;
+		}
+		.carousel{
+			width: 1060px;
+			height: 400px;
+			border: 1px solid red;
+			margin: 100px auto;
+			perspective:200px;
+			position: relative;
+		}
+		.carousel .scrollBar{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 30px;
+			background-color: #ccc;
+		}
+		.carousel .scrollBar span{
+			position: absolute;
+			left: 453px;
+			width: 151px;
+			height: 30px;
+			background-color: orange;
+		}
+		.carousel ul li{
+			position: absolute;
+			top: 10px;
+			left: 250px;
+			transition:all 0.5s ease 0s;
+		}
+		
+		.carousel ul li.left6{
+			transform:rotateY(40deg) translateZ(-900px) translateX(-580px);
+			z-index: 333;
+		}
+		.carousel ul li.left5{
+			transform:rotateY(40deg) translateZ(-800px) translateX(-480px);
+			z-index: 444;
+		}
+		.carousel ul li.left4{
+			transform:rotateY(40deg) translateZ(-700px) translateX(-380px);
+			z-index: 555;
+		}
+		.carousel ul li.left3{
+			transform:rotateY(40deg) translateZ(-600px) translateX(-280px);
+			z-index: 666;
+		}
+		.carousel ul li.left2{
+			transform:rotateY(40deg) translateZ(-500px) translateX(-180px);
+			z-index: 777;
+		}
+		.carousel ul li.left1{
+			transform:rotateY(40deg) translateZ(-400px) translateX(-80px);
+			z-index: 888;
+		}
+		.carousel ul li.center{
+			z-index: 999;
+		}
+		.carousel ul li.right1{
+			transform:rotateY(-40deg) translateZ(-400px) translateX(80px);
+			z-index: 888;
+		}
+		.carousel ul li.right2{
+			transform:rotateY(-40deg) translateZ(-500px) translateX(180px);
+			z-index: 777;
+		}
+		.carousel ul li.right3{
+			transform:rotateY(-40deg) translateZ(-600px) translateX(280px);
+			z-index: 666;
+		}
+		.carousel ul li.right4{
+			transform:rotateY(-40deg) translateZ(-700px) translateX(380px);
+			z-index: 555;
+		}
+		.carousel ul li.right5{
+			transform:rotateY(-40deg) translateZ(-800px) translateX(480px);
+			z-index: 444;
+		}
+		.carousel ul li.right6{
+			transform:rotateY(-40deg) translateZ(-900px) translateX(580px);
+			z-index: 333;
+		}
+	</style>
+	<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="jquery-ui.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var $lis = $("li");
+			var BARLENGTH = 151;
+
+			//原始数组
+			var classNameArray = ["left6","left5","left4","left3","left2","left1","center","right1","right2","right3","right4","right5","right6"];
+
+			//现在我们要设置一个起点，这个起点表示从原始数组中第几项，取7项，组成新数组
+			var nowStartIndex = 3;
+
+			//全局变量，是一个小数组
+			var nowClassNameArray = [];
+
+			function makeArrayAndChangeLisClassName(){
+				console.log("函数执行了");
+				//清空数组：
+				nowClassNameArray = [];
+				//从原始数组中的第nowStartIndex项开始，取7个项，push进入我们的新数组。
+				for(var i = nowStartIndex ; i < nowStartIndex + 7 ; i++){
+					nowClassNameArray.push(classNameArray[i]);
+				}
+				
+				//让7个li，依次从小数组中读取项，设置为自己的class
+				for(var i = 0 ; i < 7 ; i++){
+					$lis.eq(i).attr("class",nowClassNameArray[i]);
+				}
+			}
+				
+
+			console.log(nowClassNameArray);
+
+			//滑块：
+			$(".scrollBar span").draggable(
+				{
+					"containment" : ".scrollBar",
+					// 按小格蹦：
+					"grid" : [BARLENGTH,0] ,
+					drag : function(event,ui){
+						var x = ui.position.left;
+						//备份原来的数字：
+						var oldStartIndex = nowStartIndex;	
+
+						//改：
+						if(0 <= x && x < BARLENGTH){
+							nowStartIndex = 6;	
+						}else if(x < 2 * BARLENGTH){
+							nowStartIndex = 5;
+						}else if(x < 3 * BARLENGTH){
+							nowStartIndex = 4;
+						}else if(x < 4 * BARLENGTH){
+							nowStartIndex = 3;
+						}else if(x < 5 * BARLENGTH){
+							nowStartIndex = 2;
+						}else if(x < 6 * BARLENGTH){
+							nowStartIndex = 1;
+						}else if(x < 7 * BARLENGTH){
+							nowStartIndex = 0;
+						}
+
+						//检测是否发生了更改
+						if(oldStartIndex != nowStartIndex){
+							makeArrayAndChangeLisClassName();
+						}
+						
+					}
+				}
+			);
+		});
+	</script>
+</head>
+<body>
+	<div class="carousel">
+		<ul>
+			<li class="left3"><img src="images/0.jpg" alt=""></li>
+			<li class="left2"><img src="images/1.jpg" alt=""></li>
+			<li class="left1"><img src="images/2.jpg" alt=""></li>
+			<li class="center"><img src="images/3.jpg" alt=""></li>
+			<li class="right1"><img src="images/4.jpg" alt=""></li>
+			<li class="right2"><img src="images/5.jpg" alt=""></li>
+			<li class="right3"><img src="images/6.jpg" alt=""></li>
+		</ul>
+		<div class="scrollBar">
+			<span></span>
+		</div>
+	</div>
+</body>
+</html>
