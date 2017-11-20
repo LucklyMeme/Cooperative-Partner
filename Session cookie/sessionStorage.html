@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text">
+  <button class="btn">设置</button>
+  <button class="btn">获取</button>
+  <button class="btn">删除</button>
+  <button class="btn">清空</button>
+  <p></p>
+  <script>
+    var ipt = document.querySelector('input')
+    var btnset = document.querySelector('.btn')
+    var btnGet = document.querySelectorAll('.btn')[1]
+    var btnDelete = document.querySelectorAll('.btn')[2]
+    var btnClear = document.querySelectorAll('.btn')[3]
+    var p = document.querySelector('p')
+
+
+    btnset.onclick = function () {
+      window.sessionStorage.setItem('key', ipt.value)
+    }
+
+    btnGet.onclick = function () {
+      var result = window.sessionStorage.getItem('key')
+      p.innerHTML = result
+    }
+
+    btnDelete.onclick = function () {
+      window.sessionStorage.removeItem('key')
+
+    }
+
+    btnClear.onclick = function () {
+      window.sessionStorage.clear()
+    }
+  </script>
+</body>
+</html>

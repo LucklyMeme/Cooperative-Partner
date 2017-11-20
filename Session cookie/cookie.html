@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <button>发送</button>
+  <script>
+    var btn = document.querySelector('button')
+    // js中操作cookie
+    btn.onclick = function () {
+      document.cookie = 'visiter=123'
+    }
+    console.log(document.cookie)
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+cookie
+1.因为HTTP是无状态的，想要让服务端记住客户端，可以通过设置cookie/session的方式让服务端记住客户端
+2.
+3.不管用什么方式设置的cookie，最终获取的结果都是字符串的形式，通过处理字符串获得我们想要的信息
+4.cookie 是设置在请求中的 形式为 Cookie:visiter=123
+5.js 中通过document.cookie的方式设置cookie   通过document.cookie 也可以获取所有的cookie 得到的结果是'visiter=123'的形式  原生js设置cookie的生效时间必须采用GMT 格式时间  通过toGMTString()转换成GMT时间
+6.php 中通过setcookie('key', 'value'[, time]) 的方式设置cookie 通过$_COOKIE['key']的方式获取cookie的值 '123'
+7.cookie的缺点  ：cookie 最大不能超过4k  是由服务端发送分客户端存放在客户端的 有安全隐患
+                  不设置失效时间默认是一个会话的时间（浏览器打开-关闭）
+                  每次请求一个新的页面都会发送cookie，浪费带宽
+                  不能跨域访问
+
+
+
+session
+1.session 是存放在服务端的，相当于在服务端的一个保险箱里存放着数据 然后通过cookie的方式把保险箱的钥匙给到客户端
+(Cookie:PHPSESSID=vdsdbdfoqcrrfagrt1h403tsjn)
+2.在PHP中设置的方式 通过调用session_start()手动开始一个会话 通过$_SESSION['key']=value来设置一个session
+通过$_SESSION['key']也可以获取到相应的值
+3.删除session可以通过  unset($_SESSION['key']);
+大致的过程是服务端先创建一个空箱子，然后把数据保存到箱子里，然后通过cookie的方式把箱子的钥匙发送给客户端，客户端下次访问的时候，会，会通过cookie带上服务端发的钥匙(Cookie:PHPSESSID=vdsdbdfoqcrrfagrt1h403tsjn),服务端根据
+
+//cookie 和sesison 都是基于http协议的 是通过http传输数据的
+                   有客户端和服务端的交互
+//sessionStorage 和localStorage 都是本地存储数据的  可以通过 file:// 的方式来设置  也可以通过发送http请求的方式来设置
+
+
+sessionStorage
+1.设置  window.sessionStorage.setItem('key', 'value')
+2.获取  window.sessionStorage.getItem('key')
+3.删除指定 window.sessionStorage.removeItem('key')
+4.清空  window.sessionStorage.clear()
+特点  数据只能在同一页面中访问，不能跨页面访问
+      页面关闭后数据销毁
+      不属于本地存储 大小约为5M
+
+
+
+localStorage
+特点，数据可以在不同的页面之间进行访问
+      数据需要手动删除，持久化保存
+      大小约为20M
+
+设置：localStorage.setItem(k,value);
+
+获取： localStorage.getItem(k);
+
+移除： localStorage.removeItem(k);
+
+清空： localStorage.clear();
+
+
+
+//   JSON
+JSON 是一种通过普通字符串描述数据的手段，用于表示有结构的数据。语法跟JavaScript中的字面量非常相似
+数据类型  null string number boolean object array
+
+处理js数据的手段
+      json编码        json解码
+PHP  json_encoded()  json_decode
+js   JSON_stringify()    JSON.parse()
+
+
+
+
+
+
