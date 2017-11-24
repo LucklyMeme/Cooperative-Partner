@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		img{
+			border: 0;
+		}
+		.youku{
+			width: 1196px;
+			height: 30px;
+			margin: 100px auto;
+			position: relative;
+			overflow: hidden;
+			padding-top: 290px;
+		}
+		.youku .imagelist ul{
+			list-style: none;
+		}
+		.youku .imagelist ul li{
+			position: absolute;
+		}
+		.youku .imagelist ul li img{
+			width: 100%;
+			height: 100%;
+		}
+		.youku .imagelist ul li.no0{width: 281px;height:130px;left:-76px;top:82px;z-index: 666;}
+		.youku .imagelist ul li.no1{width: 435px;height: 223px;left:0px;top:30px;z-index: 777;}
+		.youku .imagelist ul li.no2{width: 639px;height: 271px;left:278px;top:6px;z-index: 888;}
+		.youku .imagelist ul li.no3{width: 435px;height: 223px;left:761px;top:30px;z-index: 777;}
+		.youku .imagelist ul li.no4{width: 281px;height:130px;left:1053px;top:82px;z-index: 666;}
+		.youku .imagelist ul li.waiting{display: none;}
+		.youku .buttons .leftbut{
+			position: absolute;
+			width: 45px;
+			height: 45px;
+			background: url(images/zuoanniu.png) no-repeat;
+			left: 16px;
+			top: 116px;
+			z-index: 999;
+			cursor: pointer;
+		}
+		.youku .buttons .rightbut{
+			position: absolute;
+			width: 45px;
+			height: 45px;
+			background: url(images/youanniu.png) no-repeat;
+			right: 16px;
+			top: 116px;
+			z-index: 999;
+			cursor: pointer;
+		}
+		.youku .imagelist ul li div.hei{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			opacity: 0.6;
+			_filter:alpha(opacity=60);
+		}
+		.youku .imagelist ul li.no2  div.hei{
+			display: none;
+		}
+		.youku .imagenav{
+			width: 300px;
+			height: 24px;
+			margin: 0 auto;
+		}
+		.youku .imagenav ul{
+			list-style: none;
+		}
+		.youku .imagenav ul li{
+			float: left;
+			width: 22px;
+			height: 22px;
+			background-color: blue;
+			margin-right: 10px;
+			cursor: pointer;
+			border-radius: 1000px;
+		}
+		.youku .imagenav ul li.cur{
+			background-color: red;
+		}
+	</style>
+	<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			//通过给imagenav恰到好处的宽，让margin:0 auto;生效。
+			//每个小圆点的宽度：
+			var xiaoyuandiankuandu = $(".youku .imagenav ul li").outerWidth(true);
+			//小圆点的个数
+			var geshu = $(".youku .imagenav ul li").length;
+			//设置imagenav总宽度：
+			$(".imagenav").css("width", xiaoyuandiankuandu * geshu);
+
+			var json0 = {"width":281,"height": 130,"left": -76,"top": 82};
+			var json1 = {"width":435,"height":223,"left":0,"top":30};
+			var json2 = {"width":639,"height":271,"left":278,"top":6};
+			var json3 = {"width":435,"height":223,"left":761,"top":30};
+			var json4 = {"width":281,"height": 130,"left": 1053,"top": 82};
+
+
+			//信号量
+			var nowimg = 0;
+
+			var lock = false;  //上帝的后门
+
+			var donghuashijian = 300;
+
+
+			/*定时器*/
+			var timer = setInterval(rightButFunc, 2000);
+			$(".youku").mouseenter(function(){clearInterval(timer);});
+			$(".youku").mouseleave(function(){clearInterval(timer);timer = setInterval(rightButFunc, 2000);});
+			/*定时器*/
+
+			//右按钮业务
+
+			$(".rightbut").click(rightButFunc);
+
+			function rightButFunc(){
+				if(!$(".imagelist ul li").is(":animated") || lock){
+					//信号量
+					if(nowimg < geshu - 1){
+						nowimg++;
+					}else{
+						nowimg = 0;
+					}
+					//小圆点
+					$(".imagenav ul li").eq(nowimg).addClass("cur").siblings().removeClass("cur");
+
+					//【先交换位置】
+					$(".imagelist .no1").animate(json0,donghuashijian);
+					$(".imagelist .no2").animate(json1,donghuashijian);
+					$(".imagelist .no3").animate(json2,donghuashijian);
+					$(".imagelist .no4").animate(json3,donghuashijian);
+					$(".imagelist .no0").css(json4);
+
+					//【再交换身份】
+					//先要备忘一下，原有的no6
+					var myno4 = $(".no4");
+					$(".no0").attr("class","waiting");
+					$(".no1").attr("class","no0");
+					$(".no2").attr("class","no1");
+					$(".no3").attr("class","no2");
+					$(".no4").attr("class","no3");
+					if(myno4.next().length != 0){
+						//如果myno6后面有人，那么就让这个人的类名为mo6
+						myno4.next().attr("class","no4");
+					}else{
+						$(".imagelist ul li").eq(0).attr("class","no4");
+					}
+
+					$(".no4").css(json4);
+				}
+			}
+
+
+			$(".leftbut").click(leftButFunc);
+			function leftButFunc(){
+				if(!$(".imagelist ul li").is(":animated") || lock){
+					if(nowimg > 0){
+						nowimg --;
+					}else{
+						nowimg = geshu - 1;
+					}
+					$(".imagenav ul li").eq(nowimg).addClass("cur").siblings().removeClass("cur");
+
+					//【先交换位置】
+					$(".imagelist .no0").animate(json1,donghuashijian);
+					$(".imagelist .no1").animate(json2,donghuashijian);
+					$(".imagelist .no2").animate(json3,donghuashijian);
+					$(".imagelist .no3").animate(json4,donghuashijian);
+					$(".imagelist .no4").css(json0);
+
+					//【再交换身份】
+					//先要备忘一下，原有的no6
+					var myno0 = $(".no0");
+					$(".no4").attr("class","waiting");
+					$(".no3").attr("class","no4");
+					$(".no2").attr("class","no3");
+					$(".no1").attr("class","no2");
+					$(".no0").attr("class","no1");
+				 	if(myno0.prev().length != 0){
+						//如果myno6后面有人，那么就让这个人的类名为mo6
+						myno0.prev().attr("class","no0");
+					}else{
+						$(".imagelist ul li:last").attr("class","no0");
+					}
+					
+					$(".no0").css(json0);
+				}
+			}
+
+			//小圆点的点击业务
+			$(".youku .imagenav ul li").click(
+				function(){
+					var beifen = donghuashijian;
+					donghuashijian = 100;
+
+					lock = true;   //上帝的后门
+					var yonghudianji = $(this).index(); //将用户点击的小圆点的序号，存入变量
+
+					//下面，我们要判断用户点击的按钮，和当前信号量的关系：
+					if(yonghudianji > nowimg){
+						//让上帝帮我们按右按钮
+						var cishu = yonghudianji - nowimg;
+						//让上帝帮我们执行cishu次右按钮的业务
+						for(var i = 1 ; i <= cishu ; i++){
+							rightButFunc();
+						}
+					}else{
+						var cishu = nowimg - yonghudianji;
+						//让上帝帮我们执行cishu次左按钮的业务
+						for(var i = 1 ; i <= cishu ; i++){
+							leftButFunc();
+						}
+					}
+
+					lock = false;   //上帝忙完了，关上后门
+					donghuashijian = beifen;
+
+					nowimg = $(this).index();
+					$(".imagenav ul li").eq(nowimg).addClass("cur").siblings().removeClass("cur");
+				}
+			);
+		}
+	</script>
+</head>
+<body>
+	<div class="youku">
+		<div class="imagelist">
+			<ul>
+				<li class="no0">
+					<a href="#">
+						<div class="hei"></div>
+						<img src="images/a.jpg" />
+					</a>
+				</li>
+				<li class="no1">
+					<a href="#">
+						<div class="hei"></div>
+						<img src="images/b.jpg" />
+					</a>
+				</li>
+				<li class="no2">
+					<a href="#">
+						<div class="hei"></div>
+						<img src="images/c.jpg" />
+					</a>
+				</li>
+				<li class="no3">
+					<a href="#">
+						<div class="hei"></div>
+						<img src="images/d.jpg" />
+					</a>
+				</li>
+				<li class="no4">
+					<a href="#">
+						<div class="hei"></div>
+						<img src="images/e.jpg" />
+					</a>
+				</li>
+				<li class="waiting">
+					<a href="#">
+						<div class="hei"></div>
+						<img src="images/f.jpg" />
+					</a>
+				</li>
+				<li class="waiting">
+					<a href="#">
+						<div class="hei"></div>
+						<img src="images/g.jpg" />
+					</a>
+				</li>
+				<li class="waiting">
+					<a href="#">
+						<div class="hei"></div>
+						<img src="images/h.jpg" />
+					</a>
+				</li>
+				<li class="waiting">
+					<a href="#">
+						<div class="hei"></div>
+						<img src="images/i.jpg" />
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="buttons">
+			<div class="leftbut"></div>
+			<div class="rightbut"></div>
+		</div>
+		<!-- 小圆点部分 -->
+		<div class="imagenav">
+			<ul>
+				<li class="cur"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
