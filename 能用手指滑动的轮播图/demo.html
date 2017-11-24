@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/> 
+	<style type="text/css">
+		*{
+			margin:0;
+			padding: 0;
+		}
+		.swipe {
+		  overflow: hidden;
+		  visibility: hidden;
+		  position: relative;
+		  width: 100%;
+		}
+		.swipe img{
+			width: 100%;
+		}
+		.swipe-wrap {
+		  overflow: hidden;
+		  position: relative;
+		}
+		.swipe-wrap > div {
+		  	float:left;
+		  	width:100%;
+		  	position: relative;
+		}
+		.xiaoyuandian{
+			width: 260px;
+			height: 30px;
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+		}
+		.xiaoyuandian ul{
+			list-style: none;
+		}
+		.xiaoyuandian ul li{
+			float: left;
+			width: 16px;
+			height: 16px;
+			background:orange;
+			margin-right: 10px;
+			border-radius:8px;
+		}
+		.xiaoyuandian ul li.cur{
+			background:red;
+		}
+	</style>
+</head>
+<body>
+	<div id="huadonglunbo" class="swipe">
+		<div class='swipe-wrap'>
+			<div><img src="images/0.jpg" /></div>
+			<div><img src="images/1.jpg" /></div>
+			<div><img src="images/2.jpg" /></div>
+			<div><img src="images/3.jpg" /></div>
+			<div><img src="images/4.jpg" /></div>
+			<div><img src="images/5.jpg" /></div>
+			<div><img src="images/6.jpg" /></div>
+			<div><img src="images/7.jpg" /></div>
+			<div><img src="images/8.jpg" /></div>
+			<div><img src="images/9.jpg" /></div>	 
+		</div>
+		<div class="xiaoyuandian">
+			<ul>
+				<li class="cur"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="js/swipe1.js"></script>
+	<script type="text/javascript">
+		var haha = document.getElementById('huadonglunbo');
+		
+		window.mySwipe = Swipe(
+			haha, 
+			{	
+				startSlide: 0,		//表示轮播开始的图片编号
+				auto: 500,         //表示自动轮播的间隔
+				continuous: true,   //表示是否再来一轮
+				disableScroll: true,  //表示是否在上面阻止默认的滚轮事件，不用改
+				stopPropagation: true,   //表示是否阻止冒泡，不用改。
+				callback: function(index, element) {
+					//写小圆点的业务
+					$(".xiaoyuandian ul li").eq(index).addClass("cur").siblings().removeClass("cur");
+				}
+			}
+		);
+
+		//小圆点的点击业务
+		$(".xiaoyuandian ul li").click(
+			function(){
+				mySwipe.slide($(this).index(),1000);
+			}
+		);
+	</script>
+</body>
+</html>
